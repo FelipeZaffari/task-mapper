@@ -14,7 +14,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     .mpsoc {
       display: flex;
       flex: 1;
@@ -24,7 +24,7 @@
       justify-content: center;
       margin: 30px;
     }
-    
+
     .cluster {
       display: flex;
       flex: 1;
@@ -47,7 +47,7 @@
         "task_communications": [{
           "id": 1,
           "load_communication": 300,
-        }, ]
+        },]
       }, {
         "id": 1,
         "load": 6000,
@@ -56,8 +56,8 @@
         "task_communications": [{
           "id": 0,
           "communication": 100,
-        }, ]
-      }, ],
+        },]
+      },],
     }, {
       "name": "App1",
       "number_tasks": 6,
@@ -72,7 +72,7 @@
         }, {
           "id": 3,
           "communication": 700,
-        }, ]
+        },]
       }, {
         "id": 1,
         "load": 600,
@@ -84,7 +84,7 @@
         }, {
           "id": 2,
           "communication": 100,
-        }, ]
+        },]
       }, {
         "id": 2,
         "load": 1600,
@@ -96,7 +96,7 @@
         }, {
           "id": 3,
           "communication": 110,
-        }, ]
+        },]
       }, {
         "id": 3,
         "load": 1000,
@@ -108,8 +108,8 @@
         }, {
           "id": 2,
           "communication": 150,
-        }, ]
-      }, ],
+        },]
+      },],
     }, {
       "name": "App2",
       "number_tasks": 3,
@@ -124,7 +124,7 @@
         }, {
           "id": 1,
           "communication": 150,
-        }, ]
+        },]
       }, {
         "id": 1,
         "load": 1234,
@@ -133,7 +133,7 @@
         "task_communications": [{
           "id": 0,
           "communication": 130,
-        }, ]
+        },]
       }, {
         "id": 2,
         "load": 5436,
@@ -142,9 +142,9 @@
         "task_communications": [{
           "id": 0,
           "communication": 450,
-        }, ]
-      }, ],
-    }, ]
+        },]
+      },],
+    },]
 
     const tests = [{
       "id": 0,
@@ -162,7 +162,7 @@
       }, {
         "app_name": "App2",
         "qtd_apps": 1,
-      }, ]
+      },]
     }, {
       "id": 1,
       "mpsoc_x": 3,
@@ -179,7 +179,7 @@
       }, {
         "app_name": "App2",
         "qtd_apps": 1,
-      }, ]
+      },]
     }, {
       "id": 2,
       "mpsoc_x": 6,
@@ -193,7 +193,7 @@
       }, {
         "app_name": "App1",
         "qtd_apps": 3,
-      }, ]
+      },]
     }, {
       "id": 3,
       "mpsoc_x": 6,
@@ -210,7 +210,7 @@
       }, {
         "app_name": "App2",
         "qtd_apps": 8,
-      }, ]
+      },]
     }, {
       "id": 4,
       "mpsoc_x": 6,
@@ -227,19 +227,22 @@
       }, {
         "app_name": "App2",
         "qtd_apps": 10,
-      }, ]
-    }, ]
+      },]
+    },]
 
     async function next() {
 
     }
-    tests.forEach(async(e) => {
+    var contTable = 0;
+    tests.forEach(async (e) => {
       console.log(e)
-
+      
       var amount = (e.mpsoc_x / e.cluster_x) * (e.mpsoc_y / e.cluster_y);
       console.log('quantidade: ', amount)
       tblMpsoc = document.createElement('table');
       tblMpsoc.classList.add('mpsoc')
+      tblMpsoc.id = "cluster_" + contTable;
+      contTable++;
 
       var cont = 0;
       for (var iMpsoc = 0; iMpsoc < amount / 2; iMpsoc++) {
@@ -257,6 +260,7 @@
           tblCluster.classList.add('cluster');
           for (let i = 0; i < e.cluster_x; i++) {
             var trCluster = tblCluster.insertRow();
+            trCluster.id = i;
             for (let j = 0; j < e.cluster_y; j++) {
               var tdCluster = trCluster.insertCell();
               tdCluster.appendChild(document.createTextNode(i + j));
@@ -273,15 +277,22 @@
       }
       document.body.appendChild(tblMpsoc);
     })
+    paintItem("cluster_0","2", "2")
+
+    function paintItem(cluster, col, row) {
+
+      var tabela = document.getElementById(cluster);
+      // console.log(tabela);
+      var linhas = tabela.getElementsByTagName('tr');
+      // console.log(linhas);
+      var col = linhas[row].getElementsByTagName('td');
+      col[2].style.backgroundColor = "orange";
+    }
 
 
-    tests.forEach(e => {
-      e.apps.forEach(app => {
-        app.name
-      })
-    })
+
   </script>
-  <script src="./apps_test.json"></script>
+
 
 </body>
 
