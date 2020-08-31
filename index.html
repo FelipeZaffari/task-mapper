@@ -33,7 +33,7 @@
   </style>
 </head>
 
-<body>
+<body onload="onLoad()">
   <button onclick="next()">Próximo</button>
   <script>
     const app_tests = [{
@@ -230,21 +230,29 @@
       },]
     },]
 
-    async function next() {
 
+<<<<<<< HEAD
     }
     var contTable = 0;
     tests.forEach(async (e) => {
+=======
+    tests.forEach(async(e) => {
+>>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
       console.log(e)
       
       var amount = (e.mpsoc_x / e.cluster_x) * (e.mpsoc_y / e.cluster_y);
       console.log('quantidade: ', amount)
       tblMpsoc = document.createElement('table');
       tblMpsoc.classList.add('mpsoc')
+<<<<<<< HEAD
       tblMpsoc.id = "cluster_" + contTable;
       contTable++;
+=======
+      tblMpsoc.id = "mpsoc" + e.id
+>>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
 
       var cont = 0;
+
       for (var iMpsoc = 0; iMpsoc < amount / 2; iMpsoc++) {
         cont++;
         var trMpsoc = tblMpsoc.insertRow();
@@ -256,11 +264,15 @@
 
           //novo cluster para cada mpsoc
           tblCluster = document.createElement('table');
-          tblCluster.id = (iMpsoc + jMpsoc) + (cont);
+          tblCluster.id = "cluster" + (iMpsoc + jMpsoc) + (cont);
           tblCluster.classList.add('cluster');
           for (let i = 0; i < e.cluster_x; i++) {
             var trCluster = tblCluster.insertRow();
+<<<<<<< HEAD
             trCluster.id = i;
+=======
+            trCluster.id = i
+>>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
             for (let j = 0; j < e.cluster_y; j++) {
               var tdCluster = trCluster.insertCell();
               tdCluster.appendChild(document.createTextNode(i + j));
@@ -290,7 +302,39 @@
     }
 
 
+    function wait(milliseconds) {
+      return new Promise(resolve => setTimeout(resolve, milliseconds));
+    }
+    async function onLoad() {
 
+<<<<<<< HEAD
+=======
+      for (let index = 0; index < tests.length; index++) {
+        const test = tests[index];
+
+        mpsoc = document.getElementById("mpsoc" + test.id)
+
+
+        for (let index = 0; index < test.apps.length; index++) {
+          const app = test.apps[index];
+
+          var i = app_tests.findIndex((app_test) => app_test.name === app.app_name)
+
+          for (let index = 0; index < app.qtd_apps; index++) {
+
+            for (let index = 0; index < app_tests[i].tasks.length; index++) {
+              const task = app_tests[i].tasks[index];
+              await wait(1000);
+              console.log(test.id, app_tests[i].name, task.id)
+
+            }
+          }
+        }
+
+
+      }
+    }
+>>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
   </script>
 
 
