@@ -33,7 +33,7 @@
   </style>
 </head>
 
-<body onload="onLoad()">
+<body">
   <button onclick="next()">Próximo</button>
   <script>
     const app_tests = [{
@@ -231,48 +231,33 @@
     },]
 
 
-<<<<<<< HEAD
-    }
-    var contTable = 0;
-    tests.forEach(async (e) => {
-=======
     tests.forEach(async(e) => {
->>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
       console.log(e)
       
       var amount = (e.mpsoc_x / e.cluster_x) * (e.mpsoc_y / e.cluster_y);
       console.log('quantidade: ', amount)
       tblMpsoc = document.createElement('table');
       tblMpsoc.classList.add('mpsoc')
-<<<<<<< HEAD
-      tblMpsoc.id = "cluster_" + contTable;
-      contTable++;
-=======
-      tblMpsoc.id = "mpsoc" + e.id
->>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
+      tblMpsoc.id = "mpsoc_" + e.id
 
       var cont = 0;
 
       for (var iMpsoc = 0; iMpsoc < amount / 2; iMpsoc++) {
         cont++;
         var trMpsoc = tblMpsoc.insertRow();
-        trMpsoc.id = iMpsoc;
+        //trMpsoc.id = iMpsoc;
         for (var jMpsoc = 0; jMpsoc < amount / 2; jMpsoc++) {
           var tdMpsoc = trMpsoc.insertCell();
-          tdMpsoc.id = jMpsoc;
+          //tdMpsoc.id = jMpsoc;
           // tdMpsoc.appendChild(document.createTextNode('X'));
 
           //novo cluster para cada mpsoc
           tblCluster = document.createElement('table');
-          tblCluster.id = "cluster" + (iMpsoc + jMpsoc) + (cont);
-          tblCluster.classList.add('cluster');
+          //tblCluster.id = "cluster_" + (iMpsoc + jMpsoc) + (cont);
+          tblCluster.classList.add("cluster_" + iMpsoc + jMpsoc);
           for (let i = 0; i < e.cluster_x; i++) {
             var trCluster = tblCluster.insertRow();
-<<<<<<< HEAD
-            trCluster.id = i;
-=======
-            trCluster.id = i
->>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
+            trCluster.id = "row_" + i;
             for (let j = 0; j < e.cluster_y; j++) {
               var tdCluster = trCluster.insertCell();
               tdCluster.appendChild(document.createTextNode(i + j));
@@ -289,26 +274,29 @@
       }
       document.body.appendChild(tblMpsoc);
     })
-    paintItem("cluster_0","2", "2")
 
-    function paintItem(cluster, col, row) {
+    paintItem("mpsoc_0", "cluster_00",2, 2)
 
-      var tabela = document.getElementById(cluster);
-      // console.log(tabela);
-      var linhas = tabela.getElementsByTagName('tr');
-      // console.log(linhas);
+    function paintItem(mpsoc, clust, row, column) {
+
+      var tabela = document.getElementById(mpsoc);
+      console.log(tabela);
+      var cluster = tabela.getElementsByClassName(clust);
+      console.log(cluster);
+
+      var linhas = cluster[0].getElementsByTagName('tr');
+      console.log(linhas);      
       var col = linhas[row].getElementsByTagName('td');
-      col[2].style.backgroundColor = "orange";
+      console.log(col);
+      col[column].style.backgroundColor = "orange";
     }
 
 
     function wait(milliseconds) {
       return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
-    async function onLoad() {
+   async function onLoad() {
 
-<<<<<<< HEAD
-=======
       for (let index = 0; index < tests.length; index++) {
         const test = tests[index];
 
@@ -334,7 +322,6 @@
 
       }
     }
->>>>>>> dbc3fada8f83a28da706e9f4114c11bdcac7b127
   </script>
 
 
